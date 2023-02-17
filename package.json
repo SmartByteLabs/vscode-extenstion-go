@@ -3,6 +3,7 @@
   "displayName": "setter-getter-golang",
   "description": "create setter and getter methods for given golang structure",
   "version": "0.0.1",
+  "publisher": "PradipParmar",
   "engines": {
     "vscode": "^1.75.0"
   },
@@ -17,7 +18,8 @@
     "commands": [
       {
         "command": "extension.generateGettersSetters",
-        "title": "Generate Setter Getter"
+        "title": "Generate Setter Getter",
+        "category": "Go"
       }
     ]
   },

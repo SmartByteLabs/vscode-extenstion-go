@@ -3,19 +3,19 @@
 import * as vscode from 'vscode';
 
 const templateString = (structName: string, capitalizedFieldName: string, fieldType: string, fieldName: string) => `
-func (s *${structName}) Get${capitalizedFieldName}() ${fieldType} {
+func (${structName.charAt(0).toLocaleLowerCase()} *${structName}) Get${capitalizedFieldName}() ${fieldType} {
 	var out ${fieldType}
-	if s == nil {
+	if ${structName.charAt(0).toLocaleLowerCase()} == nil {
 		return out
 	}
-	return s.${fieldName}
+	return ${structName.charAt(0).toLocaleLowerCase()}.${fieldName}
 }
 
-func (s *${structName}) Set${capitalizedFieldName}(value ${fieldType}) {
-	if s == nil {
+func (${structName.charAt(0).toLocaleLowerCase()} *${structName}) Set${capitalizedFieldName}(value ${fieldType}) {
+	if ${structName.charAt(0).toLocaleLowerCase()} == nil {
 		return
 	}
-	s.${fieldName} = value
+	${structName.charAt(0).toLocaleLowerCase()}.${fieldName} = value
 }
 `;
 
@@ -38,7 +38,7 @@ export function activate(context: vscode.ExtensionContext) {
                 const structBody = matches[2];
 
                 const fields = structBody.split(/\r?\n/).filter(line => line.trim() !== '').map(line => {
-                    const parts = line.trim().split(' ');
+                    const parts = line.trim().replace(/\s+/g, " ").split(' ');
                     const fieldName = parts[0];
                     const fieldType = parts[1];
                     return { name: fieldName, type: fieldType };
